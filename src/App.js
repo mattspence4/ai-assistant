@@ -11,7 +11,7 @@ import {
   TypingIndicator,
 } from "@chatscope/chat-ui-kit-react";
 
-const API_KEY = "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";
+const API_KEY = "paste api key here";
 
 function App() {
   const [isTyping, setIsTyping] = useState(false);
@@ -72,17 +72,30 @@ function App() {
         return data.json();
       })
       .then((data) => {
-        console.log(data);
-        console.log(data.choices[0].message.content)
+        // console.log(data);
+        // console.log(data.choices[0].message.content)
+        setMessages(
+          [...chatMessages, {
+            message: data.choices[0].message.content,
+            sender: "ChatGPT"
+          }]
+        )
+        setIsTyping(false);
       });
   }
 
   return (
     <div className="App">
-      <div style={{ position: "relative", height: "800px", width: "700px" }}>
+      <header>
+          <h1>MattGPT</h1>
+          <h3>your personal ai assistant</h3>
+      </header>
+
+      <div style={{ position: "relative", margin: "auto", height: "820px", width: "700px" }}>
         <MainContainer>
           <ChatContainer>
             <MessageList
+              scrollBehavior='smooth'
               typingIndicator={
                 isTyping ? (
                   <TypingIndicator content="generating response" />
